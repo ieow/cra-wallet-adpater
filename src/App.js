@@ -1,7 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+// import { FakeWalletAdapter, TorusWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { TorusWalletAdapter } from '@solana/wallet-adapter-torus';
+import { useState } from 'react';
 
 function App() {
+  // const login = () => {
+  //   const wallet = new FakeWalletAdapter();
+  // }
+  const  [ wallet, setWallet ] = useState();
+  const tlogin = ()=> {
+    const twallet = new TorusWalletAdapter({ params: {network: "devnet", buildEnv:"testing"} })
+    console.log(twallet);
+    twallet.connect();
+    setWallet(twallet);
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +30,7 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={tlogin}>Login</button>
       </header>
     </div>
   );
